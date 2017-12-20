@@ -1,6 +1,11 @@
 import { expect } from 'chai';
 import Node from '../lib/Node'
 import SearchTree from '../lib/SearchTree'
+import fs from 'fs';
+
+const text = "/usr/share/dict/words";
+const dictionary = fs.readFileSync(text).toString().trim().split('\n');
+
 
 describe('SearchTree', () => {
   let trie;
@@ -81,7 +86,6 @@ describe('SUGGEST', () => {
     trie.insert('dirt');
     trie.insert('done');
     trie.insert('donut');
-    console.log(JSON.stringify( trie.root, null, '\t'));
 
     expect(trie.suggest('d')).to.deep.equal(['dead', 'dirt', 'done', 'donut']);
     expect(trie.suggest('do')).to.deep.equal(['done', 'donut']);
@@ -89,5 +93,30 @@ describe('SUGGEST', () => {
 
 })
 
+describe('POPULATE', () => {
+  let trie;
+
+  beforeEach(() => {
+    trie = new SearchTree();
+    trie.populate(dictionary);
+  })
+
+  it('should should add 234371 words', () => {
+    expect(trie.count).to.eq(234371);
+  })
+})
+
+describe('SELECT', () => {
+  let trie;
+
+  beforeEach(() => {
+    trie = new SearchTree();
+    trie.populate(dictionary);
+  })
+
+  it('should be a function', () => {
+    expect(trie.select).to.be.a('function');
+  })
+})
 
 
