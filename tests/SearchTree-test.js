@@ -47,6 +47,7 @@ describe('INSERT', () => {
   it('should indicate that the word has an end', () => {
     trie.insert('hi');
     expect(trie.root.children.h.wordEnd).to.eq(false);
+
     expect(trie.root.children.h.children.i.wordEnd).to.eq(true)
   })
 
@@ -65,22 +66,27 @@ describe('SUGGEST', () => {
     expect(trie.wordCount).to.eq(0);
   })
 
-  it('should suggest a word based on partial word inserted', () => {
-    trie.insert('pizza');
-    console.log(JSON.stringify( trie.root, null, '\t'));
-    expect(trie.suggest('piz')).to.eq('pizza');
+  it('should return null if there is no word', () => {
+    expect(trie.wordCount).to.eq(0);
+    expect(trie.suggest('piz')).to.eq(null);
   })
 
-//   completion.suggest("piz")
-// => ["pizza"]
+  it('should take in a string and return an array', () => {
+    trie.insert('pizza');
+    expect(trie.suggest('piz')).to.be.array;
+  });
 
-// completion.insert("pizzeria")
+  it('should suggest all words matching the phrase parameter (small sample)', () => {
+    trie.insert('dead');
+    trie.insert('dirt');
+    trie.insert('done');
+    trie.insert('donut');
+    console.log(JSON.stringify( trie.root, null, '\t'));
 
-// completion.suggest("piz")
-// => ["pizza", "pizzeria"]
+    expect(trie.suggest('d')).to.deep.equal(['dead', 'dirt', 'done', 'donut']);
+    expect(trie.suggest('do')).to.deep.equal(['done', 'donut']);
+  });
 
-// completion.suggest('a')
-// => ["apple"]
 })
 
 
