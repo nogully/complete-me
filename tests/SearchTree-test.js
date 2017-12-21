@@ -112,7 +112,6 @@ describe('SUGGEST', () => {
   })
 
   it('should return null if you enter nothing', () => {
-    trie.populate(dictionary)
     expect(trie.suggest()).to.equal(null);
   })
 
@@ -177,7 +176,6 @@ describe('DELETE', () => {
 
   beforeEach(() => {
     trie = new SearchTree();
-    trie.populate(dictionary);
   })
 
   it('should be a function', () => {
@@ -185,6 +183,7 @@ describe('DELETE', () => {
   })
 
   it('should not suggest words that have been deleted', () => {
+    trie.populate(dictionary);
     expect(trie.suggest('nora')).to.deep.eq([ 'norah', 'norard', 'norate', 'noration' ])
     trie.delete('norah')
     expect(trie.suggest('nora')).to.deep.eq([ 'norard', 'norate', 'noration' ])
