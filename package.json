@@ -1,5 +1,5 @@
 {
-  "name": "tdd",
+  "name": "@nogully/complete-me",
   "version": "1.0.0",
   "main": "index.js",
   "directories": {
@@ -11,7 +11,7 @@
     "eslint": "./node_modules/eslint/bin/eslint.js ./lib/*.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "nogully",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.22.2",
