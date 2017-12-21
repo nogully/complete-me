@@ -25,4 +25,8 @@ describe('NODE', () => {
     expect(node.wordEnd).to.equal(false)
   })
 
+  it('should start out with a rating of 0', () => {
+    expect(node.rating).to.equal(0);
+  })
+
 });
